@@ -1,0 +1,71 @@
+:root {
+  color-scheme: light dark;
+  font: 14px/1.45 system-ui, sans-serif;
+  --surface: #f8fafc;
+  --text: #1b2534;
+  --secondary: #48576c;
+  --action: #294db4;
+  --action-hover: #203e94;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface: #171d27;
+    --text: #f0f3f9;
+    --secondary: #bac5d7;
+    --action: #395ec9;
+    --action-hover: #2f50b1;
+  }
+}
+
+body {
+  width: 300px;
+  margin: 0;
+  background: var(--surface);
+  color: var(--text);
+}
+
+main {
+  padding: 20px;
+}
+
+h1 {
+  margin: 0 0 4px;
+  font-size: 18px;
+}
+
+p {
+  margin: 0;
+  color: var(--secondary);
+}
+
+button {
+  width: 100%;
+  margin-block-start: 16px;
+  border: 0;
+  border-radius: 7px;
+  padding: 9px 14px;
+  background: var(--action);
+  color: white;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 650;
+}
+
+button:enabled:hover {
+  background: var(--action-hover);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 3px;
+}
+
+button:disabled {
+  opacity: .55;
+  cursor: default;
+}
+
+#status:not(:empty), #fallback:not([hidden]) {
+  margin-block-start: 10px;
+}

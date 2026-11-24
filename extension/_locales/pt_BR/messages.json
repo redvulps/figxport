@@ -1,0 +1,16 @@
+{
+  "extensionName": { "message": "Figxport" },
+  "extensionDescription": { "message": "Salve o arquivo aberto no Figma Design como um .fig nativo." },
+  "languageTag": { "message": "pt-BR" },
+  "popupDescription": { "message": "Salva o arquivo inteiro da aba atual do Figma." },
+  "exportButton": { "message": "Baixar .fig" },
+  "manualPath": { "message": "No menu principal do Figma, escolha Arquivo → Salvar cópia local." },
+  "statusOpenDesign": { "message": "Abra um arquivo no Figma Design para exportá-lo." },
+  "statusSearching": { "message": "Procurando o comando de exportação no Figma…" },
+  "statusRequested": { "message": "Exportação solicitada. Se o navegador pedir, escolha onde salvar o arquivo." },
+  "statusUnavailable": { "message": "A opção de cópia local está desativada no Figma." },
+  "statusManual": { "message": "O Figxport não encontrou o comando de exportação." },
+  "statusChanged": { "message": "O arquivo mudou. Abra o Figxport novamente na aba desejada." },
+  "statusExportError": { "message": "O Figxport não conseguiu iniciar a exportação." },
+  "statusTabError": { "message": "O Figxport não conseguiu acessar a aba. Reabra a extensão no arquivo do Figma." }
+}

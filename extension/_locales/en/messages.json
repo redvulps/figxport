@@ -1,0 +1,16 @@
+{
+  "extensionName": { "message": "Figxport" },
+  "extensionDescription": { "message": "Save the open Figma Design file as a native .fig file." },
+  "languageTag": { "message": "en" },
+  "popupDescription": { "message": "Save the full Figma file from this tab." },
+  "exportButton": { "message": "Download .fig" },
+  "manualPath": { "message": "In the Figma main menu, choose File → Save local copy." },
+  "statusOpenDesign": { "message": "Open a file in Figma Design to export it." },
+  "statusSearching": { "message": "Looking for the export command in Figma…" },
+  "statusRequested": { "message": "Export requested. Choose where to save the file if your browser asks." },
+  "statusUnavailable": { "message": "The local copy command is disabled in Figma." },
+  "statusManual": { "message": "Figxport couldn't find the export command." },
+  "statusChanged": { "message": "The file changed. Reopen Figxport in the tab you want to export." },
+  "statusExportError": { "message": "Figxport couldn't start the export." },
+  "statusTabError": { "message": "Figxport couldn't access the tab. Reopen it in the Figma file." }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "figxport",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc && node scripts/build.mjs",
+    "test": "npm run build && node --test"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
+  }
+}
