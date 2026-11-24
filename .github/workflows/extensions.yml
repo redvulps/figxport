@@ -1,0 +1,73 @@
+name: Extension builds
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Existing release tag to build and attach missing ZIPs to
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.release_tag && format('refs/tags/{0}', inputs.release_tag) || github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: Package extensions
+        run: |
+          for browser in chromium firefox; do
+            (cd "dist/$browser" && zip -q -r -X "../figxport-$browser.zip" .)
+            unzip -tq "dist/figxport-$browser.zip"
+          done
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: figxport-extensions
+          path: |
+            dist/figxport-chromium.zip
+            dist/figxport-firefox.zip
+          if-no-files-found: error
+
+  publish:
+    if: github.event_name == 'release' || github.event_name == 'workflow_dispatch'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency: figxport-release-${{ github.event.release.tag_name || inputs.release_tag }}
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: figxport-extensions
+          path: packages
+      - name: Attach ZIPs to the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.event.release.tag_name || inputs.release_tag }}
+        run: |
+          uploaded=$(gh release view --json assets --jq '.assets[] | select(.state == "uploaded") | .name' -- "$RELEASE_TAG")
+          for browser in chromium firefox; do
+            filename="figxport-$browser.zip"
+            if grep -Fxq -- "$filename" <<< "$uploaded"; then
+              echo "$filename is already attached to $RELEASE_TAG."
+            else
+              gh release upload -- "$RELEASE_TAG" "packages/$filename"
+            fi
+          done

@@ -32,6 +32,12 @@ npm run build
 
 Load the build from `dist/chromium` or `dist/firefox` using the installation steps above. Run `npm test` to build and run the tests.
 
+## Release
+
+The **Extension builds** workflow tests and packages both builds on pushes to `main` and pull requests. Publish a GitHub release from the tag you want to distribute. The workflow builds that tag and attaches `figxport-chromium.zip` and `figxport-firefox.zip` to the release.
+
+For an existing release, use **Run workflow** in **Actions → Extension builds** and enter its tag. The workflow attaches any missing ZIPs.
+
 ## Source layout
 
 - `src/figma-tab.ts` identifies the Figma file in the active tab.
